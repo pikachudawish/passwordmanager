@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct {
     char* app;
@@ -8,7 +9,8 @@ typedef struct {
 
 void opt1();
 void opt2();
-void passgenerator();
+char* passgenerator();
+void usefile();
 
 int  main() {
     int opt = 0;
@@ -42,17 +44,32 @@ int  main() {
 }
 
 void opt1() {
-    password pass;
+    password alpha;
     char temp[100] = "/0";
 
-    printf("\n aaaaaaaaaa");
+    printf("\nInsere o nome da app\n->> ");
+    while(getchar() != '\n');
+    fgets(temp, sizeof(temp), stdin);
 
+    alpha.app = (char*)malloc(sizeof(char) * (strlen(temp) + 1));
+    strcpy(alpha.app, temp);
+    temp = "/0";
+
+    printf("\nGerando uma password segura...\n");
+    strcpy(temp, passgenerator());
+
+    alpha.pass = (char*)malloc(sizeof(char) * (strlen(temp) +1));
+    strcpy(alpha.pass, temp);
 
 
 }
 
-void passgenerator() {
+char* passgenerator() {
 
+}
+
+void usefile() {
+    
 }
 
 
