@@ -4,38 +4,42 @@
 #include <stdbool.h>
 #include <unistd.h>
 
+#include "opt1.h"
+#include "opt2.h"
+#include "fileusage.h"
+
 extern char *optarg;
 extern int opterr;
 extern int optopt;
 
-typedef struct {
-    char* app;
-    char* pass;
-} password;
-
-void opt1(int charnumber);
-void opt2();
-char* passgenerator(int charnumber);
-void usefile();
-
 int  main(int argc, char *argv[]) {
     int opt = 0;
     int charnumber = 0;
-    bool end = false;
+    bool end = false; bool special = false; bool M = false;
 
     int mode;
-    while((mode = getopt(argc, argv, "hn:")) != -1) {
-        switch() {
+    while((mode = getopt(argc, argv, "hsmn:")) != -1) {
+        switch(mode) {
             case 'h':
                 printf("||MENU DE AJUDA||");  
-                printf("  -h           mostra a ajuda para o utilizador e termina\n");  
+                printf("  -h           mostra a ajuda para o utilizador e termina\n");
+                printf("  -s           obriga a haver caractereres especiais     \n");  
+                printf("  -m           obriga a haver, pelo menos, uma maiuscula \n");    
                 printf("  -n number    numero de caracteres na password          \n");
                 break;
 
             case 'n':
-                charnumer = atoi(optarg);
+                charnumber = atoi(optarg);
                 break;
-            
+
+            case 's':
+                special = true;
+                break;
+
+            case 'm':
+                M = true;
+                break;
+                
             default:
                 return 1;
         }
@@ -66,44 +70,13 @@ int  main(int argc, char *argv[]) {
 
             break;
 
-            case 3;
+            case 3:
             end = true;
-            break
+            break;
         }
     } while(!end);
 
     return 0;
 }
 
-void opt1(int charnumeber) {
-    password alpha;
-    char temp[100] = "/0";
 
-    printf("\nInsere o nome da app\n->> ");
-    while(getchar() != '\n');
-    fgets(temp, sizeof(temp), stdin);
-
-    alpha.app = (char*)malloc(sizeof(char) * (strlen(temp) + 1));
-    strcpy(alpha.app, temp);
-    temp = "/0";
-
-    printf("\nGerando uma password segura...\n");
-    strcpy(temp, passgenerator(charnumber));
-
-    alpha.pass = (char*)malloc(sizeof(char) * (strlen(temp) + 1));
-    strcpy(alpha.pass, temp);
-
-}
-
-char* passgenerator(int charnumber) {
-
-}
-
-void usefile() {
-    
-}
-
-
-void opt2() {
-
-}
